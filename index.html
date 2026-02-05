@@ -3,231 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funding | Newage Asset Management</title>
+    <title>Authentication | Newage Onrender</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background: #f1f5f9; }
-        #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: #1e1b4b; }
-        .sidebar-closed { transform: translateX(-100%); }
-        .sidebar-open { transform: translateX(0); }
-        .glass-header { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9); }
-        .asset-card.active { border-color: #4f46e5; background: #eef2ff; }
-        .qr-placeholder { background: repeating-conic-gradient(#f8fafc 0% 25%, #fff 0% 50%) 50% / 20px 20px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+        }
+
+        .glass-effect {
+            background: rgba(30, 27, 75, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .form-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+            outline: none;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #6366f1;
+            color: white;
+        }
+
+        .hidden-form {
+            display: none;
+        }
     </style>
 </head>
-<body class="text-slate-800">
-
-    <!-- OVERLAY -->
-    <div id="overlay" class="fixed inset-0 bg-indigo-950/40 z-40 hidden" onclick="toggleSidebar()"></div>
-
-   <!-- SIDEBAR (Colourful Deep Indigo) -->
-<aside id="sidebar" class="fixed top-0 left-0 h-full w-64 text-indigo-100 z-50 sidebar-closed shadow-2xl">
-    <div class="p-6 flex flex-col h-full">
-        <div class="flex items-center justify-between mb-10">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center font-bold text-white">NO</div>
-                <span class="text-xl font-bold text-white tracking-tight">Newage Onrender</span>
-            </div>
-            <button onclick="toggleSidebar()" class="text-indigo-300 hover:text-white lg:hidden">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        
-        <nav class="space-y-2 flex-1">
-            <a href="https://Newage.onrender.com" class="flex items-center space-x-3 p-3 rounded-xl bg-indigo-800/50 text-white font-medium shadow-sm">
-                <i class="fa-solid fa-house-chimney w-5 text-indigo-400"></i> <span>Dashboard</span>
-            </a>
-            <a href="https://portfolio.onrender.com" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-indigo-800/30 text-indigo-200 hover:text-white transition">
-                <i class="fa-solid fa-briefcase w-5"></i> <span>Portfolio</span>
-            </a>
-            <a href="https://investment.onrender.com" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-indigo-800/30 text-indigo-200 hover:text-white transition">
-                <i class="fa-solid fa-receipt w-5"></i> <span>Investment plans</span>
-            </a>
-            <a href="https://funding.onrender.com" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-indigo-800/30 text-indigo-200 hover:text-white transition">
-                <i class="fa-solid fa-wallet w-5"></i> <span>Funding</span>
-            </a>
-            <a href="https://withdrawal.onrender.com" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-indigo-800/30 text-indigo-200 hover:text-white transition">
-                <i class="fa-solid fa-money-bill-transfer w-5"></i> <span>Withdrawal</span>
-            </a>
-            <a href="https://transaction.onrender.com" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-indigo-800/30 text-indigo-200 hover:text-white transition">
-                <i class="fa-solid fa-gem w-5"></i> <span>Transaction</span>
-            </a>
-        </nav>
-
-        <div class="pt-6 border-t border-indigo-800/50">
-            <a href="https://wa.me/18128023489" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-indigo-800/30 text-indigo-200 transition">
-                <i class="fa-solid fa-headset w-5"></i> <span>Support</span>
-            </a>
-            <a href="https://facebook.hm" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-red-500/20 text-red-400 transition mt-2">
-                <i class="fa-solid fa-power-off w-5"></i> <span>Log Out</span>
-            </a>
-        </div>
-    </div>
-</aside>
+<body class="min-h-screen flex flex-col">
 
     <!-- HEADER -->
-    <header class="sticky top-0 glass-header border-b border-slate-200 z-30 lg:ml-64">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center">
-                <button onclick="toggleSidebar()" class="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg lg:hidden">
-                    <i class="fa-solid fa-bars-staggered text-xl"></i>
-                </button>
-                <span class="ml-4 font-black text-slate-900 text-lg uppercase tracking-tight">Account Funding</span>
-            </div>
-            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">user</div>
+    <header class="w-full p-6 flex justify-between items-center bg-indigo-950/50 backdrop-blur-md border-b border-indigo-800/30">
+        <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center font-bold text-white shadow-lg">NO</div>
+            <span class="text-2xl font-bold text-white tracking-tight">Newage Onrender</span>
         </div>
+       <a href="https://newage-investment.onrender.com" class="text-indigo-300 hover:text-white transition-colors text-sm font-medium">
+    Back to Home
+</a>
     </header>
 
     <!-- MAIN CONTENT -->
-    <div class="lg:ml-64 min-h-screen">
-        <main class="max-w-4xl mx-auto p-4 md:p-8">
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="w-full max-w-lg glass-effect rounded-3xl p-8 shadow-2xl">
             
-            <!-- PORTFOLIO DIRECT STATEMENT -->
-            <div class="mb-8 p-5 bg-indigo-600 rounded-3xl shadow-xl shadow-indigo-100 flex items-center space-x-4 text-white">
-                <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-shield-check text-xl"></i>
+            <!-- TABS -->
+            <div class="flex border-b border-indigo-800/50 mb-8">
+                <button onclick="switchTab('login')" id="login-tab" class="flex-1 py-4 text-center font-semibold text-indigo-300 tab-active transition-all">Login</button>
+                <button onclick="switchTab('register')" id="register-tab" class="flex-1 py-4 text-center font-semibold text-indigo-300 transition-all">Create Account</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Email Address</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"></i>
+                        <input type="email" autocomplete="username" class="form-input w-full pl-11 pr-4 py-3 rounded-xl" placeholder="name@company.com" required>
+                    </div>
                 </div>
                 <div>
-                    <h4 class="font-black uppercase tracking-wider text-sm">Direct Portfolio Crediting</h4>
-                    <p class="text-indigo-100 text-xs opacity-90">All deposits are processed securely and credited directly to your active investment portfolio upon confirmation.</p>
-                </div>
-            </div>
-
-            <!-- CRYPTO SELECTION -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <button onclick="selectAsset(
-'BTC',
-'bc1qg5ap459yw5atf8p83mwz85pyrhzkm582cyd2ly',
-'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bc1qg5ap459yw5atf8p83mwz85pyrhzkm582cyd2ly'
-)" id="btn-BTC" class="asset-card active bg-white p-4 rounded-3xl border-2 border-slate-100 flex flex-col items-center">
-<i class="fa-brands fa-bitcoin text-2xl text-[#F7931A] mb-2"></i>
-<span class="text-[10px] font-black uppercase text-slate-400">Bitcoin</span>
-</button>
-
-
-                <button onclick="selectAsset(
-'ETH',
-'0x6441d37C1A4b8223CA4F8D9A98A6B4da9e4A88a7',
-'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x6441d37C1A4b8223CA4F8D9A98A6B4da9e4A88a7'
-)" id="btn-ETH" class="asset-card bg-white p-4 rounded-3xl border-2 border-slate-100 flex flex-col items-center">
-<i class="fa-brands fa-ethereum text-2xl text-[#627EEA] mb-2"></i>
-<span class="text-[10px] font-black uppercase text-slate-400">Ethereum</span>
-</button>
-
-<button onclick="selectAsset(
-'USDT',
-'0x6441d37C1A4b8223CA4F8D9A98A6B4da9e4A88a7',
-'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x6441d37C1A4b8223CA4F8D9A98A6B4da9e4A88a7'
-)" id="btn-USDT" class="asset-card bg-white p-4 rounded-3xl border-2 border-slate-100 flex flex-col items-center">
-<i class="fa-solid fa-tether text-2xl text-[#26A17B] mb-2"></i>
-<span class="text-[10px] font-black uppercase text-slate-400">USDT (ERC20)</span>
-</button>
-
-<button onclick="selectAsset(
-'SOL',
-'5vJmr9CCyiNKnJ4xJfp7b1eCfJsUXfQWktRW2KiBd5s',
-'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=5vJmr9CCyiNKnJ4xJfp7b1eCfJsUXfQWktRW2KiBd5s'
-)" id="btn-SOL" class="asset-card bg-white p-4 rounded-3xl border-2 border-slate-100 flex flex-col items-center">
-<i class="fa-solid fa-s text-2xl text-[#14F195] mb-2"></i>
-<span class="text-[10px] font-black uppercase text-slate-400">Solana</span>
-</button>
-
-            </div>
-
-            <!-- WALLET DISPLAY CARD -->
-            <div class="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden mb-8">
-                <div class="p-8 md:p-12 text-center">
-                    <p class="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-6">Transfer via Network</p>
-                    
-                    <!-- QR CODE BOX -->
-                    <div class="w-48 h-48 mx-auto bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl mb-8 flex items-center justify-center overflow-hidden">
-                        <!-- ADD YOUR QR IMAGE HERE -->
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bc1qg5ap459yw5atf8p83mwz85pyrhzkm582cyd2ly" id="qr-img" alt="QR Code" class="w-full h-full object-contain p-4">
-                    </div>
-
-                    <div class="max-w-md mx-auto">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Your Unique <span id="asset-name">BTC</span> Address</label>
-                        <div class="relative">
-                            <input type="text" id="wallet-address" value="bc1qg5ap459yw5atf8p83mwz85pyrhzkm582cyd2ly" readonly 
-                                class="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-6 text-sm font-bold text-slate-700 text-center outline-none">
-                            <button onclick="copyAddress()" class="mt-4 flex items-center justify-center mx-auto text-indigo-600 text-xs font-bold hover:text-indigo-800">
-                                <i class="fa-solid fa-copy mr-2"></i> COPY ADDRESS
-                            </button>
-                        </div>
+                    <label class="block text-indigo-200 text-sm mb-2">Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"></i>
+                        <input type="password" autocomplete="current-password" class="form-input w-full pl-11 pr-4 py-3 rounded-xl" placeholder="••••••••" required>
                     </div>
                 </div>
-                
-                <div class="bg-slate-50 p-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-tight">Awaiting inbound transfer...</span>
+                <div class="flex items-center justify-between text-xs sm:text-sm">
+                    <label class="flex items-center text-indigo-300 cursor-pointer">
+                        <input type="checkbox" class="mr-2 rounded border-indigo-500 bg-indigo-900 text-indigo-600 focus:ring-indigo-500"> Remember me
+                    </label>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium">Forgot Password?</a>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-[0.98]">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="register-form" class="space-y-5 hidden-form" onsubmit="handleRegistration(event)">
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Full Name</label>
+                    <input type="text" class="form-input w-full px-4 py-3 rounded-xl" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Email Address</label>
+                    <input type="email" class="form-input w-full px-4 py-3 rounded-xl" placeholder="john@example.com" required>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-indigo-200 text-sm mb-2">Gender</label>
+                        <select class="form-input w-full px-4 py-3 rounded-xl appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
                     </div>
-                    <p class="text-[10px] text-slate-400 italic">Minimum deposit: $50.00 equivalent</p>
-                </div>
-            </div>
+                    <div>
+                        <label class="block text-indigo-200 text-sm mb-2">Country</label>
+                        <select class="form-input w-full px-4 py-3 rounded-xl appearance-none cursor-pointer" required>
+                            <option value="" disabled selected>Select</option>
+  <option value="AF">Afghanistan</option>
+<option value="AL">Albania</option>
+<option value="DZ">Algeria</option>
+<option value="AD">Andorra</option>
+<option value="AO">Angola</option>
+<option value="AG">Antigua and Barbuda</option>
+<option value="AR">Argentina</option>
+<option value="AM">Armenia</option>
+<option value="AU">Australia</option>
+<option value="AT">Austria</option>
+<option value="AZ">Azerbaijan</option>
 
-            <!-- ALTERNATIVE PAYMENTS -->
-            <div class="space-y-4">
-                <p class="text-center text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Instant Purchase Providers</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <button class="flex items-center justify-center space-x-3 p-4 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition shadow-sm group">
-                        <i class="fa-solid fa-moon text-indigo-500 group-hover:scale-110 transition"></i>
-                        <span class="text-xs font-black text-slate-700 uppercase italic">Pay with MoonPay</span>
-                    </button>
-                    
-                    <button class="flex items-center justify-center space-x-3 p-4 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition shadow-sm group">
-                        <i class="fa-solid fa-credit-card text-slate-600 group-hover:scale-110 transition"></i>
-                        <span class="text-xs font-black text-slate-700 uppercase italic">Card Payment</span>
-                    </button>
-                    
-                    <button class="flex items-center justify-center space-x-3 p-4 bg-[#0070ba] text-white rounded-2xl hover:opacity-90 transition shadow-sm group">
-                        <i class="fa-brands fa-paypal group-hover:scale-110 transition"></i>
-                        <span class="text-xs font-black uppercase italic tracking-tighter">PayPal Checkout</span>
-                    </button>
-                </div>
-            </div>
+<option value="BS">Bahamas</option>
+<option value="BH">Bahrain</option>
+<option value="BD">Bangladesh</option>
+<option value="BB">Barbados</option>
+<option value="BY">Belarus</option>
+<option value="BE">Belgium</option>
+<option value="BZ">Belize</option>
+<option value="BJ">Benin</option>
+<option value="BT">Bhutan</option>
+<option value="BO">Bolivia</option>
+<option value="BA">Bosnia and Herzegovina</option>
+<option value="BW">Botswana</option>
+<option value="BR">Brazil</option>
+<option value="BN">Brunei</option>
+<option value="BG">Bulgaria</option>
+<option value="BF">Burkina Faso</option>
+<option value="BI">Burundi</option>
 
-            <!-- SECURITY FOOTER -->
-            <div class="mt-12 text-center">
-                <div class="inline-flex items-center space-x-2 text-slate-400 bg-slate-100 px-4 py-2 rounded-full border border-slate-200">
-                    <i class="fa-solid fa-lock text-[10px]"></i>
-                    <span class="text-[10px] font-bold uppercase tracking-widest">End-to-End Encrypted Tunnel</span>
-                </div>
-            </div>
+<option value="KH">Cambodia</option>
+<option value="CM">Cameroon</option>
+<option value="CA">Canada</option>
+<option value="CV">Cape Verde</option>
+<option value="CF">Central African Republic</option>
+<option value="TD">Chad</option>
+<option value="CL">Chile</option>
+<option value="CN">China</option>
+<option value="CO">Colombia</option>
+<option value="KM">Comoros</option>
+<option value="CG">Congo</option>
+<option value="CR">Costa Rica</option>
+<option value="CI">Côte d’Ivoire</option>
+<option value="HR">Croatia</option>
+<option value="CU">Cuba</option>
+<option value="CY">Cyprus</option>
+<option value="CZ">Czech Republic</option>
 
-        </main>
-    </div>
+<option value="DK">Denmark</option>
+<option value="DJ">Djibouti</option>
+<option value="DM">Dominica</option>
+<option value="DO">Dominican Republic</option>
+
+<option value="EC">Ecuador</option>
+<option value="EG">Egypt</option>
+<option value="SV">El Salvador</option>
+<option value="GQ">Equatorial Guinea</option>
+<option value="ER">Eritrea</option>
+<option value="EE">Estonia</option>
+<option value="SZ">Eswatini</option>
+<option value="ET">Ethiopia</option>
+
+<option value="FJ">Fiji</option>
+<option value="FI">Finland</option>
+<option value="FR">France</option>
+
+<option value="GA">Gabon</option>
+<option value="GM">Gambia</option>
+<option value="GE">Georgia</option>
+<option value="DE">Germany</option>
+<option value="GH">Ghana</option>
+<option value="GR">Greece</option>
+<option value="GD">Grenada</option>
+<option value="GT">Guatemala</option>
+<option value="GN">Guinea</option>
+<option value="GW">Guinea-Bissau</option>
+<option value="GY">Guyana</option>
+
+<option value="HT">Haiti</option>
+<option value="HN">Honduras</option>
+<option value="HU">Hungary</option>
+
+<option value="IS">Iceland</option>
+<option value="IN">India</option>
+<option value="ID">Indonesia</option>
+<option value="IR">Iran</option>
+<option value="IQ">Iraq</option>
+<option value="IE">Ireland</option>
+<option value="IL">Israel</option>
+<option value="IT">Italy</option>
+
+<option value="JM">Jamaica</option>
+<option value="JP">Japan</option>
+<option value="JO">Jordan</option>
+
+<option value="KZ">Kazakhstan</option>
+<option value="KE">Kenya</option>
+<option value="KI">Kiribati</option>
+<option value="KW">Kuwait</option>
+<option value="KG">Kyrgyzstan</option>
+
+<option value="LA">Laos</option>
+<option value="LV">Latvia</option>
+<option value="LB">Lebanon</option>
+<option value="LS">Lesotho</option>
+<option value="LR">Liberia</option>
+<option value="LY">Libya</option>
+<option value="LI">Liechtenstein</option>
+<option value="LT">Lithuania</option>
+<option value="LU">Luxembourg</option>
+
+<option value="MG">Madagascar</option>
+<option value="MW">Malawi</option>
+<option value="MY">Malaysia</option>
+<option value="MV">Maldives</option>
+<option value="ML">Mali</option>
+<option value="MT">Malta</option>
+<option value="MH">Marshall Islands</option>
+<option value="MR">Mauritania</option>
+<option value="MU">Mauritius</option>
+<option value="MX">Mexico</option>
+<option value="FM">Micronesia</option>
+<option value="MD">Moldova</option>
+<option value="MC">Monaco</option>
+<option value="MN">Mongolia</option>
+<option value="ME">Montenegro</option>
+<option value="MA">Morocco</option>
+<option value="MZ">Mozambique</option>
+<option value="MM">Myanmar</option>
+
+<option value="NA">Namibia</option>
+<option value="NR">Nauru</option>
+<option value="NP">Nepal</option>
+<option value="NL">Netherlands</option>
+<option value="NZ">New Zealand</option>
+<option value="NI">Nicaragua</option>
+<option value="NE">Niger</option>
+<option value="NG">Nigeria</option>
+<option value="KP">North Korea</option>
+<option value="MK">North Macedonia</option>
+<option value="NO">Norway</option>
+
+<option value="OM">Oman</option>
+
+<option value="PK">Pakistan</option>
+<option value="PW">Palau</option>
+<option value="PA">Panama</option>
+<option value="PG">Papua New Guinea</option>
+<option value="PY">Paraguay</option>
+<option value="PE">Peru</option>
+<option value="PH">Philippines</option>
+<option value="PL">Poland</option>
+<option value="PT">Portugal</option>
+
+<option value="QA">Qatar</option>
+
+<option value="RO">Romania</option>
+<option value="RU">Russia</option>
+<option value="RW">Rwanda</option>
+
+<option value="KN">Saint Kitts and Nevis</option>
+<option value="LC">Saint Lucia</option>
+<option value="VC">Saint Vincent and the Grenadines</option>
+<option value="WS">Samoa</option>
+<option value="SM">San Marino</option>
+<option value="ST">Sao Tome and Principe</option>
+<option value="SA">Saudi Arabia</option>
+<option value="SN">Senegal</option>
+<option value="RS">Serbia</option>
+<option value="SC">Seychelles</option>
+<option value="SL">Sierra Leone</option>
+<option value="SG">Singapore</option>
+<option value="SK">Slovakia</option>
+<option value="SI">Slovenia</option>
+<option value="SB">Solomon Islands</option>
+<option value="SO">Somalia</option>
+<option value="ZA">South Africa</option>
+<option value="KR">South Korea</option>
+<option value="ES">Spain</option>
+<option value="LK">Sri Lanka</option>
+<option value="SD">Sudan</option>
+<option value="SR">Suriname</option>
+<option value="SE">Sweden</option>
+<option value="CH">Switzerland</option>
+<option value="SY">Syria</option>
+
+<option value="TW">Taiwan</option>
+<option value="TJ">Tajikistan</option>
+<option value="TZ">Tanzania</option>
+<option value="TH">Thailand</option>
+<option value="TL">Timor-Leste</option>
+<option value="TG">Togo</option>
+<option value="TO">Tonga</option>
+<option value="TT">Trinidad and Tobago</option>
+<option value="TN">Tunisia</option>
+<option value="TR">Turkey</option>
+<option value="TM">Turkmenistan</option>
+<option value="TV">Tuvalu</option>
+
+<option value="UG">Uganda</option>
+<option value="UA">Ukraine</option>
+<option value="AE">United Arab Emirates</option>
+<option value="UK">United Kingdom</option>
+<option value="US">United States</option>
+<option value="UY">Uruguay</option>
+<option value="UZ">Uzbekistan</option>
+
+<option value="VU">Vanuatu</option>
+<option value="VA">Vatican City</option>
+<option value="VE">Venezuela</option>
+<option value="VN">Vietnam</option>
+
+<option value="YE">Yemen</option>
+
+<option value="ZM">Zambia</option>
+<option value="ZW">Zimbabwe</option>
+                            <!-- More countries can be added here -->
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Password</label>
+                    <input type="password" class="form-input w-full px-4 py-3 rounded-xl" placeholder="••••••••" required>
+                </div>
+                <div>
+                    <label class="block text-indigo-200 text-sm mb-2">Confirm Password</label>
+                    <input type="password" class="form-input w-full px-4 py-3 rounded-xl" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="reg-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all transform active:scale-[0.98]">
+                    Create Account
+                </button>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full p-8 bg-black/40 border-t border-indigo-900/50">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="text-indigo-400 text-sm">
+                &copy; 2024 Newage Onrender. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-indigo-300 hover:text-white transition text-xs uppercase tracking-wider font-semibold">Privacy Policy</a>
+                <a href="#" class="text-indigo-300 hover:text-white transition text-xs uppercase tracking-wider font-semibold">Terms of Service</a>
+                <a href="#" class="text-indigo-300 hover:text-white transition text-xs uppercase tracking-wider font-semibold">Contact</a>
+            </div>
+            <div class="flex space-x-4">
+                <i class="fa-brands fa-x-twitter text-indigo-400 hover:text-white cursor-pointer transition"></i>
+                <i class="fa-brands fa-linkedin text-indigo-400 hover:text-white cursor-pointer transition"></i>
+                <i class="fa-brands fa-github text-indigo-400 hover:text-white cursor-pointer transition"></i>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('sidebar-closed');
-            document.getElementById('sidebar').classList.toggle('sidebar-open');
-            document.getElementById('overlay').classList.toggle('hidden');
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const loginTab = document.getElementById('login-tab');
+            const registerTab = document.getElementById('register-tab');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden-form');
+                registerForm.classList.add('hidden-form');
+                loginTab.classList.add('tab-active');
+                registerTab.classList.remove('tab-active');
+            } else {
+                loginForm.classList.add('hidden-form');
+                registerForm.classList.remove('hidden-form');
+                loginTab.classList.remove('tab-active');
+                registerTab.classList.add('tab-active');
+            }
         }
 
-        function selectAsset(symbol, address) {
-            // Update Text and Value
-            document.getElementById('asset-name').innerText = symbol;
-            document.getElementById('wallet-address').value = address;
+        function handleRegistration(event) {
+            event.preventDefault();
+            const btn = document.getElementById('reg-btn');
             
-            // Update QR Code (Using a public API for demonstration, replace with your static images)
-            document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${address}`;
+            // Visual feedback
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Creating...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
 
-            // Handle UI Styling
-            document.querySelectorAll('.asset-card').forEach(card => card.classList.remove('active'));
-            document.getElementById(`btn-${symbol}`).classList.add('active');
-        }
-
-        function copyAddress() {
-            const copyText = document.getElementById("wallet-address");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(copyText.value);
-            alert("Address Copied: " + copyText.value);
+            // 1 second delay then redirect
+            setTimeout(() => {
+                window.location.href = "https://newagedashboard.onrender.com";
+            }, 1000);
         }
     </script>
+<script>
+document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault(); // stop default submit
+
+    // HTML5 validation check
+    if (this.checkValidity()) {
+        window.location.href = "https://newagedashboard.onrender.com";
+    } else {
+        this.reportValidity();
+    }
+});
+</script>
 </body>
 </html>
