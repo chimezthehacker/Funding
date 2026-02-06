@@ -118,11 +118,24 @@
 
 <button onclick="selectAsset(
 'USDT',
-'0x6441d37C1A4b8223CA4F8D9A98A6B4da9e4A88a7',
-'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x6441d37C1A4b8223CA4F8D9A98A6B4da9e4A88a7'
-)" id="btn-USDT" class="asset-card bg-white p-4 rounded-3xl border-2 border-slate-100 flex flex-col items-center">
-<i class="fa-solid fa-tether text-2xl text-[#26A17B] mb-2"></i>
-<span class="text-[10px] font-black uppercase text-slate-400">USDT (ERC20)</span>
+'TD7EyjgTYhkt6wKnhKZbseJr96HmK2aMD2',
+'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TD7EyjgTYhkt6wKnhKZbseJr96HmK2aMD2'
+)" 
+id="btn-USDT" 
+class="asset-card bg-white p-4 rounded-3xl border-2 border-slate-100 flex flex-col items-center">
+
+  <!-- Emoji on its own line -->
+  <span style="display:block; font-size:24px; margin-bottom:6px; line-height:1;">
+    💲
+  </span>
+
+  <!-- Icon -->
+  <i class="fa-solid fa-tether text-2xl text-[#26A17B] mb-2"></i>
+
+  <!-- Label -->
+  <span class="text-[10px] font-black uppercase text-slate-400">
+    USDT(Trc 20)
+  </span>
 </button>
 
 <button onclick="selectAsset(
@@ -173,20 +186,17 @@
                 <p class="text-center text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Instant Purchase Providers</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <button class="flex items-center justify-center space-x-3 p-4 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition shadow-sm group">
-                        <i class="fa-solid fa-moon text-indigo-500 group-hover:scale-110 transition"></i>
-                        <span class="text-xs font-black text-slate-700 uppercase italic">Pay with MoonPay</span>
-                    </button>
+                   <a href="https://www.moonpay.com" target="_blank" rel="noopener noreferrer">
+  <button class="flex items-center justify-center space-x-3 p-4 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition shadow-sm group">
+    <i class="fa-solid fa-moon text-indigo-500 group-hover:scale-110 transition"></i>
+    <span class="text-xs font-black text-slate-700 uppercase italic">
+      Pay with MoonPay
+    </span>
+  </button>
+</a>
                     
-                    <button class="flex items-center justify-center space-x-3 p-4 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition shadow-sm group">
-                        <i class="fa-solid fa-credit-card text-slate-600 group-hover:scale-110 transition"></i>
-                        <span class="text-xs font-black text-slate-700 uppercase italic">Card Payment</span>
-                    </button>
-                    
-                    <button class="flex items-center justify-center space-x-3 p-4 bg-[#0070ba] text-white rounded-2xl hover:opacity-90 transition shadow-sm group">
-                        <i class="fa-brands fa-paypal group-hover:scale-110 transition"></i>
-                        <span class="text-xs font-black uppercase italic tracking-tighter">PayPal Checkout</span>
-                    </button>
+                 
+               
                 </div>
             </div>
 
